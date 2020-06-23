@@ -19,8 +19,8 @@ resource "azurerm_app_service" "service" {
   https_only          = var.https_only
 
   site_config {
-    http2_enabled             = var.http2_enabled
-    min_tls_version           = var.min_tls_version
+    http2_enabled   = var.http2_enabled
+    min_tls_version = var.min_tls_version
   }
 
   app_settings = local.app_settings
