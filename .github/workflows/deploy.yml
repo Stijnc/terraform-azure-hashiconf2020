@@ -48,10 +48,13 @@ jobs:
         run: terraform apply -auto-approve -no-color
 
       - name: terraform output
-        run: echo "::set-env name=tf_out::$(terraform output -json)"
+        id: out
+        run: echo ::set-output name=tf_out::$(terraform output -json)
 
       - name: continious deployment
         uses: Azure/cli@v1.0.0
+        env:
+          tf_out: ${{steps.out.outputs.tf_out}}
         with:
           inlineScript: |
             url=$(echo $tf_out | jq -r .app_service_name.value)
