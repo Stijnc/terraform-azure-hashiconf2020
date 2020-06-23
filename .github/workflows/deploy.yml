@@ -51,6 +51,9 @@ jobs:
         id: out
         run: echo ::set-output name=tf_out::$(terraform output -json)
 
+      - name: dummy
+        run: echo ${{steps.out.outputs.tf_out}}
+        
       - name: continious deployment
         uses: Azure/cli@v1.0.0
         env:
