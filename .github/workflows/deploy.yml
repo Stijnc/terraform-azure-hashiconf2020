@@ -19,17 +19,13 @@ jobs:
             shell: bash
             working-directory: infrastructre/tf
         steps:
-            #login so terraform can use the credentials of azure cli(avoid duplicate secrets)
-            - name: Azure Login
-              uses: azure/login@v1
-              with:
-               creds: ${{ secrets.AZURE_CREDENTIALS }} 
-            - name: checkout
-              uses: actions/checkout@v2
-            - name: terraform setup
-              uses: hashicorp/setup-terraform@v1
+            - uses: actions/checkout@v2
+            - uses: hashicorp/setup-terraform@v1
               with:
                 terraform_version: 0.12.26
+            - uses: azure/login@v1
+              with:
+                creds: ${{ secrets.AZURE_CREDENTIALS }} 
             - name: terraform fmt
               run: terraform fmt
             - name: terraform init
@@ -40,7 +36,7 @@ jobs:
               run: terraform plan -no-color
               continue-on-error: false
             - name: terraform apply
-              run: terraform apply
+              run: terraform apply -auto-approve -no-color
             -name : terraform output
               run: echo ::set-output name=tf_out::$(terraform output -json)
             - name:  continious deployment
