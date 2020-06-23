@@ -17,7 +17,7 @@ jobs:
         defaults:
           run:
             shell: bash
-            working-directory: infrastructre/tf
+            #working-directory: infrastructre/tf
         steps:
             - uses: actions/checkout@v2
             - uses: azure/login@v1
@@ -28,7 +28,8 @@ jobs:
                 terraform_version: 0.12.26
 
             - name: terraform fmt
-              run: terraform fmt
+              run: terraform fmt -check
+              continue-on-error: true
 
             - name: terraform init
               run: terraform init -backend-config="env/backend.tfvars"
@@ -41,7 +42,7 @@ jobs:
 
             - name: terraform apply
               run: terraform apply -auto-approve -no-color
-
+              
             - name : terraform output
               run: echo ::set-output name=tf_out::$(terraform output -json)
 
