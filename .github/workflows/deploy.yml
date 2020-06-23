@@ -20,12 +20,12 @@ jobs:
             working-directory: infrastructre/tf
         steps:
             - uses: actions/checkout@v2
-            - uses: hashicorp/setup-terraform@v1
-              with:
-                terraform_version: 0.12.26
             - uses: azure/login@v1
               with:
                 creds: ${{ secrets.AZURE_CREDENTIALS }}
+            - uses: hashicorp/setup-terraform@v1
+              with:
+                terraform_version: 0.12.26
 
             - name: terraform fmt
               run: terraform fmt
