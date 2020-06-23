@@ -17,7 +17,7 @@ jobs:
         defaults:
           run:
             shell: bash
-            #working-directory: infrastructre/tf
+            working-directory: infrastructure/tf
         steps:
             - uses: actions/checkout@v2
             - uses: azure/login@v1
