@@ -4,7 +4,6 @@ on:
     branches:
       - master
 env:
-  GITHUB_PAT: ${{ secrets.PAT}}
   REPO_URL: "https://github.com/Stijnc/AzureEats-Website"
   TF_VAR_resource_group_name: "rg-tfazure2020"
   TF_VAR_owner: "stijnc"
@@ -47,7 +46,6 @@ jobs:
       - name: terraform apply
         run: terraform apply -auto-approve -no-color
 
-        #Needs help
       - name: terraform output
         id: out
         run: |
@@ -55,10 +53,13 @@ jobs:
           echo "::set-output name=tf_out::$res"
         continue-on-error: true
 
+      #Needs help - how can I transfer env vars in a docker task?
       - name: continious deployment
         uses: Azure/cli@v1.0.0
         env:   
           tf_out: ${{steps.out.outputs.tf_out}}
+          REPO_URL: $REPO_URL
+          resource_group_name : $TF_VAR_resource_group_name
         with:
           inlineScript: |
             az webapp deployment source config --branch master --manual-integration --name as-tfazure2020 --repo-url $REPO_URL --resource-group $TF_VAR_resource_group_name
