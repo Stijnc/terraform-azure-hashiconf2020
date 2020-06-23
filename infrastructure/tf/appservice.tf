@@ -9,6 +9,11 @@ resource "azurerm_app_service_plan" "plan" {
   }
 
   tags = local.common_tags
+  lifecycle {
+    ignore_changes = [
+      tags
+    ]
+  }
 }
 
 resource "azurerm_app_service" "service" {
