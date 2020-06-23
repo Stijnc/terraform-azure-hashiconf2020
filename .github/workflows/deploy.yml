@@ -51,7 +51,7 @@ jobs:
         id: out
         run: |
           res=$(terraform output -json)
-          echo ::set-output name=tf_out::$res
+          echo "::set-output name=tf_out::$res"
 
       - name: dummy
         run: echo ${{steps.out.outputs.tf_out}}
