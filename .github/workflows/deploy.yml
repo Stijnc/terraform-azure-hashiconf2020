@@ -21,18 +21,19 @@ jobs:
         defaults:
           run:
             shell: bash
-            working-directory: infrastructre/tf
+            working-directory: infrastructure/tf
         steps:
             - uses: actions/checkout@v2
-            - uses: hashicorp/setup-terraform@v1
-              with:
-                terraform_version: 0.12.26
             - uses: azure/login@v1
               with:
                 creds: ${{ secrets.AZURE_CREDENTIALS }}
+            - uses: hashicorp/setup-terraform@v1
+              with:
+                terraform_version: 0.12.26
 
             - name: terraform fmt
-              run: terraform fmt
+              run: terraform fmt -check
+              continue-on-error: true
 
             - name: terraform init
               run: terraform init -backend-config="env/backend.tfvars"
@@ -45,7 +46,7 @@ jobs:
 
             - name: terraform apply
               run: terraform apply -auto-approve -no-color
-
+              
             - name : terraform output
               run: echo ::set-output name=tf_out::$(terraform output -json)
 
