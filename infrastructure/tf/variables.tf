@@ -68,8 +68,8 @@ variable "min_tls_version" {
 variable app_settings {
   type = map(string)
   default = {
-    "ApiUrl"                 = ""
-    "ApiUrlShoppingCart"     = ""
+    "ApiUrl"                 = "/api/v1"
+    "ApiUrlShoppingCart"     = "/api/v1"
     "MongoConnectionString"  = ""
     "SqlConnectionString"    = ""
     "productImagesUrl"       = "https://raw.githubusercontent.com/microsoft/TailwindTraders-Backend/master/Deploy/tailwindtraders-images/product-detail"
@@ -77,4 +77,34 @@ variable app_settings {
     "Personalizer__Endpoint" = ""
   }
   description = "Map of the application settings"
+}
+
+variable sql_server_admin_user {
+  type        = string
+  default     = "sqladmin"
+  description = "Azure SQL server administrator"
+}
+
+variable sql_server_version {
+  type        = string
+  default     = "12.0"
+  description = "The SQL server version"
+}
+
+variable acg_mongodb_image {
+  type = string 
+  default = "bitnami/mongodb:4.2.8"
+}
+
+variable acg_mongodb_cpu {
+  default = 2
+}
+
+variable acg_mongodb_memory {
+  default = 2
+}
+
+variable acg_mongodb_admin_user {
+  type = string
+  default = "mongodbadmin"
 }

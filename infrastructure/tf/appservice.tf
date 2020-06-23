@@ -28,5 +28,13 @@ resource "azurerm_app_service" "service" {
     min_tls_version = var.min_tls_version
   }
 
-  app_settings = local.app_settings
+  app_settings = {
+    "ApiUrl"                 = "/api/v1"
+    "ApiUrlShoppingCart"     = "/api/v1"
+    "MongoConnectionString"  = local.mongodb_connection_string
+    "SqlConnectionString"    = local.mssql_connection_string
+    "productImagesUrl"       = "https://raw.githubusercontent.com/microsoft/TailwindTraders-Backend/master/Deploy/tailwindtraders-images/product-detail"
+    "Personalizer__ApiKey"   = ""
+    "Personalizer__Endpoint" = ""
+  }
 }
