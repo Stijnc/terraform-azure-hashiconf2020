@@ -66,4 +66,4 @@ jobs:
         uses: Azure/cli@v1.0.0
         with:
           inlineScript: |
-            az webapp deployment source config --branch master --manual-integration --repo-url ${{ env.REPO_URL }} --resource-group ${{ env.TF_VAR_resource_group_name}} --name ${{ steps.out.outputs.stdout }}
+            az webapp deployment source config --branch master --manual-integration --repo-url ${{ env.REPO_URL }} --resource-group ${{ env.TF_VAR_resource_group_name}} --name as-tfazure2020
