@@ -61,7 +61,8 @@ jobs:
       - name: terraform output test
         id: outtest
         run: |
-         ${{ steps.out.outputs.stdout }}
+         echo ${{ steps.out.outputs.stdout }}
+         echo ${{ GITHUB_REF }}
         continue-on-error: true
 
       - name: continious deployment
