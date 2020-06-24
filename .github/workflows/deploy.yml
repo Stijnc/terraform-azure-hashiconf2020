@@ -55,7 +55,7 @@ jobs:
       - name: terraform output
         id: out
         run: |
-          res=terraform output -json
+          res=$(terraform output -json)
           echo "::set-output name=tf_out::$res"
         continue-on-error: true
 
@@ -65,6 +65,8 @@ jobs:
          echo ${{ steps.out.outputs.stdout }}
          echo "-----"
          echo ${{ env.GITHUB_REF }}
+         echo "-----"
+         echo ${{ GITHUB_REF }}
          echo "-----"
          echo ${{ steps.out.outputs.tf_out }}
         continue-on-error: true
