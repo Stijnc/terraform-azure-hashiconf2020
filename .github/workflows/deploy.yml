@@ -2,7 +2,7 @@ name: deploy
 on:
   push:
     branches:
-      - master
+      - pipeline-test
 env:
   REPO_URL: "https://github.com/Stijnc/AzureEats-Website"
   TF_VAR_resource_group_name: "rg-tfazure2020"
