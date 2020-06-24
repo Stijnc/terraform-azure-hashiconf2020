@@ -20,3 +20,7 @@ output "sql_database_name" {
 output "mongodb_server_fqdn" {
   value = azurerm_container_group.cgroup.fqdn
 }
+
+output "resource_group_name" {
+  value = data.azurerm_resource_group.main.name
+}
