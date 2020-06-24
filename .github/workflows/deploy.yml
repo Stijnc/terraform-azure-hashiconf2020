@@ -46,19 +46,33 @@ jobs:
       - name: terraform apply
         run: terraform apply -auto-approve -no-color
 
+<<<<<<< HEAD
+=======
+        #Needs help
+>>>>>>> 32aebabb82fa6c4dab80ef3ccc35dd0e104095b2
       - name: terraform output
         id: out
         run: |
           res=$(terraform output -json)
           echo "::set-output name=tf_out::$res"
         continue-on-error: true
+<<<<<<< HEAD
       #Needs help - how can I transfer env vars in a docker task?
+=======
+
+>>>>>>> 32aebabb82fa6c4dab80ef3ccc35dd0e104095b2
       - name: continious deployment
         uses: Azure/cli@v1.0.0
         env:   
           tf_out: ${{steps.out.outputs.tf_out}}
+<<<<<<< HEAD
           REPO_URL: $REPO_URL
           resource_group_name : $TF_VAR_resource_group_name
         with:
           inlineScript: |
             az webapp deployment source config --branch master --manual-integration --name as-tfazure2020 --repo-url $REPO_URL --resource-group $resource_group_name
+=======
+        with:
+          inlineScript: |
+            az webapp deployment source config --branch master --manual-integration --name as-tfazure2020 --repo-url $REPO_URL --resource-group $TF_VAR_resource_group_name
+>>>>>>> 32aebabb82fa6c4dab80ef3ccc35dd0e104095b2
