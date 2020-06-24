@@ -31,28 +31,39 @@ jobs:
           terraform_version: 0.12.26
 
       - name: terraform fmt
+        id: fmt
         run: terraform fmt -check
         continue-on-error: true
 
       - name: terraform init
+        id: init
         run: terraform init -backend-config="env/backend.tfvars"
 
       - name: terraform validate
+        id: validate
         run: terraform validate -no-color
 
       - name: terraform plan
+        id: plan
         run: terraform plan -no-color
 
       - name: terraform apply
+        id: apply
         run: terraform apply -auto-approve -no-color
 
         #Needs help
       - name: terraform output
         id: out
         run: |
-          res=$(terraform output -json)
-          echo "::set-env name=tf_out::$res"
+          terraform output -json
         continue-on-error: true
+
+      - name: terraform output test
+        id: outtest
+        run: |
+         ${{ steps.out.outputs.stdout }}
+        continue-on-error: true
+
       - name: continious deployment
         uses: Azure/cli@v1.0.0
         with:
