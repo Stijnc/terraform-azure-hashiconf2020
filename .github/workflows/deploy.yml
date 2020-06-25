@@ -55,25 +55,19 @@ jobs:
         #Needs help
       - name: terraform output
         id: out
-        run: |
-          app_service_name=$(terraform output app_service_name)
-          echo "::set-output name=app_service_name::$app_service_name"
-          echo "::set-env name=app_service_name::$app_service_name"
+        run: terraform output app_service_name
         continue-on-error: true
 
       - name: output test
         id: outtest
         run: |
          echo "${{ steps.out.outputs.stdout }}"
-         echo "-----"
-         echo "-----"
          echo "${GITHUB_REF#refs/heads/}"
-         echo "----"
-         echo  "${{ steps.out.outputs.app_service_name }}"
         continue-on-error: true
   code-deploy:
     name: code deploy
     runs-on: ubuntu-latest
+    needs: [platform-deploy]
     defaults:
       run:
         shell: bash
@@ -81,4 +75,4 @@ jobs:
     steps:
       - name: test
         id: test
-        run: echo $app_service_name
+        run: echo "$app_service_name"
