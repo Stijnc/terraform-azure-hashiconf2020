@@ -62,7 +62,7 @@ jobs:
       - name: output test
         id: outtest
         run: |
-         echo ${{ steps.out.outputs.stdout }}
+         echo "${{ steps.out.outputs.stdout }}"
          echo "-----"
          echo "-----"
          echo "${GITHUB_REF#refs/heads/}"
