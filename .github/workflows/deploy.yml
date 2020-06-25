@@ -55,8 +55,10 @@ jobs:
       - name: terraform output
         id: out
         run: |
-          res=$(terraform output -json)
-          echo "::set-output name=tf_out::$res"
+          app_service_name=$(terraform output app_service_name)
+          echo "::set-output name=app_service_name::$app_service_name"
+          resource_group_name=$(terraform output resource_group_name)
+          echo "::set-output name=app_service_name::$resource_group_name"
         continue-on-error: true
 
       - name: output test
@@ -67,6 +69,6 @@ jobs:
          echo "-----"
          echo "${GITHUB_REF#refs/heads/}"
          echo "----"
-         echo "${github.actor}"
-         echo "" 
+         echo "${{ steps.out.outputs.resource_group_name }}"
+         echo  "${{ steps.out.outputs.app_service_name }}"
         continue-on-error: true
