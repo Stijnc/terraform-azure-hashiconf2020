@@ -64,7 +64,6 @@ jobs:
         run: |
          echo ${{ steps.out.outputs.stdout }}
          echo "-----"
-         echo "${{ GITHUB_REF }}"
          echo "-----"
          echo "${{ GITHUB_REF#refs/heads/ }}"
          echo "----"
