@@ -64,12 +64,10 @@ jobs:
         run: |
          echo ${{ steps.out.outputs.stdout }}
          echo "-----"
-         echo ${{ env.GITHUB_REF }}
+         echo "${{ GITHUB_REF }}"
          echo "-----"
-         echo ${GITHUB_REF}
-         echo "-----"
-         echo ${GITHUB_REF##*/}
-          echo "-----"
-         echo ${{ env.GITHUB_REF##*/}}
-         echo ${{ steps.out.outputs.tf_out }}
+         echo "${{ GITHUB_REF#refs/heads/ }}"
+         echo "----"
+         echo "${{ github.actor }}"
+         echo "" 
         continue-on-error: true
