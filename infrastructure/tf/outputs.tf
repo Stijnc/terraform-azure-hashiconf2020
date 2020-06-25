@@ -1,3 +1,6 @@
+output "mongodb_server_fqdn" {
+  value = azurerm_container_group.cgroup.fqdn
+}
 output "app_service_url" {
   value = azurerm_app_service.service.default_site_hostname
 }
@@ -19,4 +22,7 @@ output "sql_database_name" {
 
 output "mongodb_server_fqdn" {
   value = azurerm_container_group.cgroup.fqdn
+}
+output "resource_group_name" {
+  value = data.azurerm_resource_group.main.name
 }
